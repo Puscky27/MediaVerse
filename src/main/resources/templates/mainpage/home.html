@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <link rel="stylesheet" th:href="@{css/home.css}">
+    <link rel="stylesheet" th:href="@{css/profile.css}">
+    <title>MediaVerse</title>
+</head>
+
+<body>
+
+<div th:replace="fragments/navbar"></div>
+<section class="backgroundd">
+    <section class="page-content-profile">
+        <div class="page-top">
+            <button id="makepostButton" class="makepostButton">Post something</button>
+            <hr class="horizontal_line">
+        </div>
+        <div class="flex-container-user-profile" th:each="post: ${listPosts}">
+            <div class="flex-container-user-profile-row1">
+                <form id="user-profile" th:action="@{/userProfile}" method="post" autocomplete="off">
+                <input type="text" id="friend_id" name="friend_id" th:value="${post.user.id}"
+                       class="form-control" hidden/>
+                <div class="flex-container-user-profile-row1-column1">
+                    <button type="submit" id="${post.user.id}" class="profileButton">
+                        <img th:src="'/get/image/' + ${post.user.userName}" />
+                    </button>
+                </div>
+                </form>
+                <div class="flex-container-user-profile-row1-column2">
+                    <div class="flex-container-user-profile-row1-column2-row1">
+                        <a th:text="${post.user.firstName + ' ' + post.user.lastName + ' a postat'}"></a>
+                    </div>
+                    <div class="flex-container-user-profile-row1-column2-row1">
+                        <a style="color:#c5c5c5;" th:text="${post.time}"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-container-user-profile-row2">
+                <a th:text="${post.description}"></a>
+            </div>
+            <div class="flex-container-user-profile-row3">
+                <img th:src="'/get/imageById/' + ${post.id}" />
+            </div>
+        </div>
+    </section>
+</section>
+<!-- The Modal -->
+<div id="myModal" class="modal-post">
+    <!-- Modal content -->
+    <div class="modal-post-content">
+        <form id="post" th:action="@{/post}" method="post" enctype="multipart/form-data">
+            <div class="modal-post-header">
+                <div class="clearfix">
+                    <div class="upload">
+                        <input type="file" name="image" id="image" accept="image/*"/>
+                        <span class="fileName">Select a photo to upload</span>
+                    </div>
+
+                    <span class="post-close">&times;</span>
+                </div>
+            </div>
+            <div class="modal-post-body">
+                <textarea name="comments" id="comments"  placeholder="Write a description" style="width:100%;height:10vh;
+                background-color:white;color:black;border:none;outline:none;font:22px/30px sans-serif;text-indent:0;"></textarea>
+            </div>
+            <div class="modal-post-footer">
+                <button type="submit" class="post-button">Post</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("makepostButton");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("post-close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+<script type="text/javascript">
+    $('input[type=file]').change(function(e) {
+        $in = $(this);
+        $in.next().html($in.val());
+
+    });
+
+    $('.uploadButton').click(function() {
+        var fileName = $("#image").val();
+        if (fileName) {
+            alert(fileName + " can be uploaded.");
+        }
+        else {
+            alert("Please select a file to upload");
+        }
+    });
+
+</script>

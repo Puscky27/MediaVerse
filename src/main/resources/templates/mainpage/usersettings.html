@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <link rel="stylesheet" th:href="@{css/home.css}">
+    <link rel="stylesheet" th:href="@{css/profile.css}">
+    <title>MediaVerse</title>
+</head>
+
+<body>
+<div th:replace="fragments/navbar"></div>
+
+<section class="backgroundd">
+    <section class="page-content">
+        <div id="page-top">
+            <h1 class="profile-page-title" th:text="${user.firstName + ' ' + user.lastName + ' settings'}"></h1>
+            <hr class="horizontal_line">
+        </div>
+
+        <div class="content">
+            <div class="left-side" style="display: inline-block">
+
+                <div class="profile-input-boxes">
+                    <form id="update-user" th:action="@{/update-user}" th:object="${user}" method="post" autocomplete="off">
+
+                        <p class="error-message" th:if="${#fields.hasGlobalErrors()}"
+                           th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation
+                            error</p>
+
+                        <p class="details-header">Email</p>
+                        <div class="input-group mb-3" th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
+                            <input type="text" id="email" name="email" placeholder="Email"
+                                   class="form-control" th:field="*{email}"/>
+                        </div>
+                        <p class="error-message"
+                           th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation
+                            error</p>
+
+                        <p class="details-header">Password</p>
+                        <div class="input-group mb-3" th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
+                            <input type="password" placeholder="Type your new password"
+                                   id="password" name="password" class="form-control" th:field="*{password}"/>
+                        </div>
+                        <p class="error-message"
+                           th:each="error : ${#fields.errors('password')}"
+                           th:text="${error}">Validation error</p>
+
+                        <p class="details-header">Phone</p>
+                        <div class="input-group mb-3">
+                            <input type="text" id="phone" name="phone" placeholder="Phone"
+                                   class="form-control" th:field="*{phone}"/>
+                        </div>
+
+                        <p class="details-header">Other contact information</p>
+                        <div class="input-group mb-3">
+                            <input type="text" id="other_contact" name="other_contact" placeholder="Other contact information"
+                                   class="form-control" th:field="*{other_contact}" />
+                        </div>
+
+                        <button type="submit" class="save-button">Save</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="right-side" style="display: inline-block; width: 40%">
+                <p class="details-header">Profile photo</p>
+
+
+                <form th:action="@{/upload/image}"
+                      method="post"
+                      enctype="multipart/form-data">
+                    <label>
+                        <div class="profile-image-container">
+                            <img th:src="'/get/image/' + ${user.userName}"/>
+                        </div>
+
+                    <div>
+                        <input type="file" name="image" accept="image/png, image/jpeg" style="display:none"/>
+                    </div>
+                    </label>
+                    <button type="submit" class="save-button">Upload</button>
+                </form>
+
+            </div>
+        </div>
+
+
+
+    </section>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,242 @@
+
+.no-projects-container {
+    padding: 30px 10px;
+    width: 80%;
+    margin: 50px auto;
+    border: 2px solid black;
+
+}
+
+.projects-large-button {
+    background-color: rgba(13, 110, 139, 0.75);
+    padding: 15px 25px;
+    text-decoration: none;
+    color: white !important;
+    display: inline-block;
+    border: none;
+}
+
+.projects-small-button {
+    background-color: rgba(13, 110, 139, 0.75);
+    padding: 10px 15px;
+    text-decoration: none;
+    color: white !important;
+    display: inline-block;
+    float: right;
+}
+
+.no-project-buttons-container {
+    width: 50%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.my-projects-container {
+    margin: 20px 30px;
+}
+
+.project-box {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 2px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+.preferred-project-label {
+    padding: 5px;
+    background-color: #07d007;
+    color: white !important;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.set-preferred-project-button {
+    padding: 5px;
+    background-color: rgba(215, 27, 27, 0.75);
+    text-decoration: none !important;
+    color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+/* SUBMISSION FORM */
+.submission-form-container {
+    padding: 30px;
+    margin: 20px;
+    border: 2px solid black;
+}
+
+.submission-form-container h4 {
+    margin-top: 15px;
+}
+
+
+/* COORDINATOR */
+
+.suggestion-wrapper {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.suggestion-wrapper h3 {
+    text-decoration: underline;
+}
+
+.suggestion-wrapper p {
+    min-height: 150px;
+}
+
+/* PROJECT PAGE */
+
+.top-buttons {
+    margin: 20px 50px;
+    display: flex;
+    max-width: 50%;
+}
+
+.project-details-box {
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    border: 1px solid black;
+}
+
+.project-details-box .box-in-project-details:last-child {
+    border: none;
+}
+
+.box-in-project-details {
+    border-right: 1px solid black;
+    padding: 0 20px;
+    width: 30%;
+}
+
+.active {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.selected-button {
+    background-color: #37DC71E2;
+}
+
+.project-phases-container {
+    width: 90%;
+    margin-top: 20px;
+}
+
+.project-phase-title {
+    background-color: black;
+    color: white;
+    padding: 0.75rem;
+}
+
+.project-phase-wrap {
+    padding: 0;
+    border: 1px solid black !important;
+    margin-bottom: 10px;
+}
+
+.table-align-right {
+    text-align: right;
+}
+
+.bottom-icons {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+/* PROPOSAL */
+
+.marking-box{
+    margin-top: 15px;
+}
+
+.marking-box-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.marking-box-mark-header input, h5 {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 0;
+}
+
+/* CHAPTERS */
+.chapter-feedback-table {
+    width: 80%;
+}
+
+.chapter-feedback-table tr td {
+    padding-bottom: 10px;
+}
+
+.chapter-feedback-table tr th:nth-last-child(-n+3){
+    width: 15%;
+    text-align:center;
+}
+
+.chapter-feedback-table tr td:nth-last-child(-n+3){
+    width: 15%;
+    text-align:center;
+}
+
+/* DISCUSSIONS */
+.discussions-wrapper {
+    padding: 10px;
+    border: 1px solid black;
+    margin: 10px 0;
+    width: 90%;
+}
+
+
+/* MEETINGS */
+
+.meeting-wrapper {
+    padding: 10px 30px;
+    border: 1px solid black;
+    margin: 10px;
+    display: inline-block;
+    width: 400px;
+    height: 100%;
+}
+
+.new-meeting-wrapper{
+    padding: 5px;
+    border: 1px solid black;
+    margin-right: 50px;
+}
+
+.new-meeting-wrapper p {
+    margin-top: 10px;
+    margin-bottom: 2px;
+}
+
+/* SUPERVISORY RECORD */
+.supervisory-record-form-container {
+    padding: 10px;
+    margin: 20px 20px 20px 0;
+    border: 2px solid black;
+}
+
+.supervisory-record-form-container p {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 2px;
+    margin-top: 15px;
+}
+

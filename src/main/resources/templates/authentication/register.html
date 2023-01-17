@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <title>MediaVerse</title>
+</head>
+
+<body>
+<div class="index-page-body-flex">
+
+    <nav>
+        <a th:href="@{/index}" class="logo">
+            MediaVerse
+        </a>
+        <ul class="nav-links">
+            <li class="nav-item"><a th:href="@{/index}">Home</a></li>
+            <li class="nav-item"><a th:href="@{/registration}">Register</a></li>
+        </ul>
+    </nav>
+    <section id="showcase">
+        <section id="register-box">
+            <h2>Register</h2>
+            <hr>
+            <div class="register-fields-box">
+                <form id="registration" th:action="@{/registration}" th:object="${user}" method="post" autocomplete="off">
+
+                    <p class="error-message" th:if="${#fields.hasGlobalErrors()}"
+                       th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation
+                        error</p>
+
+
+                    <div class="input-group mb-3" th:classappend="${#fields.hasErrors('firstName')}? 'has-error':''">
+                        <input type="text" id="firstName" name="firstName" placeholder="First name"
+                               class="form-control" th:field="*{firstName}" />
+                    </div>
+                    <p class="error-message"
+                       th:each="error: ${#fields.errors('firstName')}"
+                       th:text="${error}">Validation error</p>
+
+
+                    <div class="input-group mb-3" th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
+                        <input type="text" id="lastName" name="lastName" placeholder="Last name"
+                               class="form-control" th:field="*{lastName}"/>
+                    </div>
+                    <p class="error-message"
+                       th:each="error : ${#fields.errors('lastName')}"
+                       th:text="${error}">Validation error</p>
+
+                    <div class="input-group mb-3" th:classappend="${#fields.hasErrors('userName')}? 'has-error':''">
+                        <input type="text" id="userName" name="userName" placeholder="Username"
+                               class="form-control" th:field="*{userName}"/>
+                    </div>
+                    <p class="error-message"
+                       th:each="error : ${#fields.errors('userName')}" th:text="${error}">Validation
+                        error</p>
+
+                    <div class="input-group mb-3" th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
+                        <input type="text" id="email" name="email" placeholder="Email"
+                               class="form-control" th:field="*{email}"/>
+                    </div>
+                    <p class="error-message"
+                       th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation
+                        error</p>
+
+                    <div class="input-group mb-3" th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
+                        <input type="password" th:placeholder="Password"
+                               id="password" name="password" class="form-control" th:field="*{password}"/>
+                    </div>
+                    <p class="error-message"
+                       th:each="error : ${#fields.errors('password')}"
+                       th:text="${error}">Validation error</p>
+
+                    <button type="submit" class="register-button">Register</button>
+                </form>
+            </div>
+
+        </section>
+    </section>
+
+    <script type="text/javascript"
+            th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+    <script type="text/javascript"
+            th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+</div>
+</body>
+</html>

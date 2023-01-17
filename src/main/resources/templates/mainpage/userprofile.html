@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{css/style.css}">
+  <link rel="stylesheet" th:href="@{css/home.css}">
+  <link rel="stylesheet" th:href="@{css/profile.css}">
+  <title>MediaVerse</title>
+</head>
+
+<body>
+<div th:replace="fragments/navbar"></div>
+
+<section class="backgroundd">
+  <section class="page-content-profile">
+    <div class="page-top">
+      <div class="flex-cointainer-myprofile">
+        <div class="flex-container-myprofile-left"><img th:src="'/get/image/' + ${friend.userName}" /></div>
+        <div class="flex-container-myprofile-right">
+          <div class="flex-container-myprofile-right2">
+            <a th:text="${friend.firstName + ' ' + friend.lastName + ' profile'}"></a>
+          </div>
+          <div class="flex-container-myprofile-right2" th:if="${listUsers.contains(friend)}" >
+            <form id="addFriend"   th:if="${!friendRequests.contains(friend)}" th:action="@{/sendFriendRequest}" method="post" autocomplete="off">
+              <input type="text" id="friend_id" name="friend_id" th:value="${friend.id}"
+                     class="form-control" hidden/>
+              <button type="submit"  id="${friend.id}" class="add-friend-button">Send friend request</button>
+            </form>
+            <form id="addFriend"   th:if="${friendRequests.contains(friend)}" th:action="@{/cancelFriendRequest}" method="post" autocomplete="off">
+              <input type="text" id="friend_id" name="friend_id" th:value="${friend.id}"
+                     class="form-control" hidden/>
+              <button type="submit"  id="${friend.id}" class="delete-friend-button">Cancel friend request</button>
+            </form>
+          </div>
+          <div class="flex-container-myprofile-right2" th:if="${!listUsers.contains(friend)}">
+            <form id="deleteFriend"  th:action="@{/deleteFriend}" method="post" autocomplete="off">
+              <input type="text" id="friend_id" name="friend_id" th:value="${friend.id}"
+                     class="form-control" hidden/>
+              <button type="submit"  id="${friend.id}" class="delete-friend-button">Delete friend</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <hr class="horizontal_line">
+    </div>
+
+    <div class="flex-container-user-profile" th:each="post: ${listPosts}">
+        <div class="flex-container-user-profile-row1">
+          <div class="flex-container-user-profile-row1-column1"><img th:src="'/get/image/' + ${friend.userName}" /></div>
+          <div class="flex-container-user-profile-row1-column2">
+            <div class="flex-container-user-profile-row1-column2-row1">
+              <a th:text="${friend.firstName + ' ' + friend.lastName + ' a postat'}"></a>
+            </div>
+            <div class="flex-container-user-profile-row1-column2-row1">
+              <a style="color:#c5c5c5;" th:text="${post.time}"></a>
+            </div>
+          </div>
+        </div>
+        <div class="flex-container-user-profile-row2">
+          <a th:text="${post.description}"></a>
+        </div>
+        <div class="flex-container-user-profile-row3">
+          <img th:src="'/get/imageById/' + ${post.id}" />
+        </div>
+    </div>
+  </section>
+</section>
+</body>
+</html>

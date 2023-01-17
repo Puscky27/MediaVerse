@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <title>MediaVerse</title>
+</head>
+
+<body>
+<div class="index-page-body-flex">
+
+    <nav>
+        <a th:href="@{/index}" class="logo">
+            MediaVerse
+        </a>
+        <ul class="nav-links">
+            <li class="nav-item"><a th:href="@{/index}">Home</a></li>
+            <li class="nav-item"><a th:href="@{/registration}">Register</a></li>
+
+        </ul>
+    </nav>
+
+    <!-- Home -->
+    <section id="showcase" >
+        <section id="login-box">
+            <h2>Login</h2>
+            <hr>
+            <div class="login-fields-box">
+                <form id="login" th:action="@{/login}" method="post">
+
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">Invalid username or
+                            password.</div>
+                    </div>
+                    <div th:if="${param.logout}">
+                        <div class="alert alert-info">You have been logged out.</div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input type="text" id="user_name" name="user_name" th:placeholder="Username"
+                               class="form-control"/>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input type="password" th:placeholder="Password"
+                               id="password" name="password" class="form-control"/>
+                    </div>
+                    <div th:if="${param.error}">
+                        <p style="font-size: 20px; color: #FF1C19;">Email or Password invalid, please verify</p>
+                    </div>
+                    <button type="submit" class="login-button">Login</button>
+
+                    <p style="font-size:20px; color:black">Don't have an account? <a style="font-size:26px;color:#7e7d7d" th:href="@{/registration}"
+                    >Register</a></p>
+                </form>
+            </div>
+
+        </section>
+    </section>
+
+</div>
+</body>
+
+</html>

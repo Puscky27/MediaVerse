@@ -1,0 +1,336 @@
+
+.profile-page-title {
+    padding: 20px;
+    margin-left: 30px;
+}
+
+.horizontal_line {
+    border: 2px solid black;
+}
+
+#user-details {
+    margin-left: 50px;
+}
+
+.details-header {
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-bottom: 0 !important;
+}
+
+.profile-input-boxes {
+    max-width: 40vw;
+}
+
+.save-button {
+    display: block;
+    border: none;
+    background: #2374e1;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 30px;
+    text-decoration: none;
+    border-radius:10px;
+}
+
+.save-button:hover,focus {
+    background: #307be1;
+    cursor:pointer;
+}
+
+.left-side {
+    width: 45%;
+}
+
+.right-side {
+    width: 45%;
+    margin: 0 5%;
+}
+
+.profile-image-container img {
+    width: 300px !important;
+    height: 300px;
+}
+
+.flex-container-user-profile {
+      background:white;
+      border-radius: 2%;
+      border:1px;
+      border-color:rgb(246, 246, 246);
+      margin:3vw;
+}
+
+.flex-container-user-profile-row1 {
+    display: flex;
+    flex-direction:row;
+    width:100%;
+    min-height:4vw;
+}
+
+.flex-container-user-profile-row1-column1 {
+    width:20%;
+    min-height:4vw;
+}
+
+.flex-container-user-profile-row1-column1 img {
+     width:4vw;
+     height:4vw;
+     border-radius:4%;
+}
+
+.flex-container-user-profile-row1-column2 {
+    min-width:70%;
+    min-height:30%;
+    flex-direction:column;
+    flex-wrap:wrap;
+    margin:auto;
+}
+.flex-container-user-profile-row1-column2-row1 {
+    min-width:100%;
+    min-height:60%;
+    flex-direction:column;
+    flex-wrap:wrap;
+    margin:auto;
+}
+.flex-container-user-profile-row1-column2-row1-a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    display: block;
+}
+.flex-container-user-profile-row1-column2-row1 a {
+    font-weight:bold;
+    font-size: 150%;
+}
+
+.flex-container-user-profile-row1-column2-row2 {
+    min-width:100%;
+    min-height:40%;
+    flex-direction:column;
+    flex-wrap:wrap;
+    margin:auto;
+}
+.flex-container-user-profile-row1-column3 {
+    min-height: 30%;
+    min-width: 10%;
+    flex-direction:column;
+    flex-wrap:wrap;
+    text-align:end;
+}
+.delete-post-X {
+    color: #ff0000;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.delete-post-X:hover,
+.delete-post-X:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.flex-container-user-profile-row2 {
+    display: flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    width:100%;
+    padding:1vw;
+}
+
+.flex-container-user-profile-row3 {
+    display: flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    width:100%;
+}
+
+.flex-container-user-profile-row3 img {
+        max-width: 100%;
+        min-width: 100%;
+        max-height: 30vw;
+        margin-bottom:2vw;
+}
+
+
+.flex-container-friends {
+
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 2%;
+  padding:1vw;
+  margin:1vw;
+  row-gap:1vw;
+  column-gap:1vw;
+  background:white;
+}
+
+.flex-container-item-left {
+  flex: 49%;
+  border:2px solid rgb(246, 246, 246);;
+  background:#e8f0fe;
+  flex-grow:0;
+}
+
+.flex-container-item-right {
+  flex: 48%
+}
+
+.flex-container-friends img {
+    border-radius:15%;
+    width:5vw;
+    height:5vw;
+    margin-left:0.5vw;
+    margin-top:0.5vw;
+    margin-bottom:0.5vw;
+}
+
+.flex-container-friends a {
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    margin-left:10%;
+    vertical-align:top;
+    padding:1vw;
+}
+
+.flex-container-friends button{
+    border: none;
+    outline: none;
+    border-radius:10px;
+    display:block;
+    background: #ff1a1a;
+    /*#3a3b3c un gri frumos */
+    color: white;
+    width:25%;
+    height:30%;
+    text-decoration: none;
+    font-size:150%;
+    margin-top:-2.5vw;
+    margin-bottom:0.7vw;
+    margin-left:auto;
+    margin-right:auto;
+
+}
+
+.flex-container-friends button:hover{
+    background:#ff3333;
+    cursor:pointer;
+}
+
+
+.flex-cointainer-myprofile {
+    display: flex;
+    flex-direction:row;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.flex-container-myprofile-left {
+    width: 29%;
+    height: 100%;
+}
+
+.flex-container-myprofile-right{
+    width: 70%;
+    min-height: 49%;
+    display:flex;
+    flex-direction:column;
+}
+.flex-container-myprofile-right2{
+    margin: auto;
+
+
+}
+
+/* Modal for post delete */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    margin: auto;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    position:absolute;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    margin:auto;
+    top:50%;
+    transform: translate(0, -50%);
+    width: 50%;/* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: black;
+    font-size: 36px;
+    font-weight: bold;
+    background:white;
+    width:15%;
+    padding-left: 6%;
+    border-radius:10px;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Modal Body */
+.modal-body {text-align: center;}
+
+/* Modal Footer */
+.modal-footer {
+    background-color: #e8f0fe;
+    color: black;
+    justify-content: center;
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 40%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+.yes-button {
+    border: none;
+    outline: none;
+    border-radius:2%;
+    display:block;
+    background: #2374e1;
+    /*#3a3b3c un gri frumos */
+    color: white;
+    width:15%;
+    height:30%;
+    text-decoration: none;
+    font-size:150%;
+    border-radius:10px;
+
+}
+.yes-button:hover,
+.yes-button:focus{
+    background: #4586e3;
+    cursor:pointer;
+}
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 50%; opacity: 1}
+}

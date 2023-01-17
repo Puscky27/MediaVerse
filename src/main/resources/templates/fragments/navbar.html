@@ -1,0 +1,350 @@
+<nav>
+  <div class="nav-column1">
+    <a th:href="@{/home}" class="logo">
+      MediaVerse
+    </a>
+  </div>
+  <div class="nav-column2">
+    <div class="search">
+      <input type="text" placeholder="Search..." class="searchBox" id="searchBox"  onkeyup="filterFunction()">
+      <div id="dropdown-content-searchBox" class="dropdown-content-searchBox">
+      </div>
+    </div>
+  </div>
+  <div class="nav-column3">
+    <div tabindex="0" class="menu">
+      <div class="circle">
+        <img class="notification-img" src="https://i.ibb.co/Kr3yX99/Notification.png" alt="Notification" border="0"></a>
+      </div>
+      <div class="menu-dropdown" id="notifications">
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-column4">
+    <div class="dropdownmenu">
+      <div class="user-name-container">
+        <p class="name-of-user" style="color:black; font-weight: bold; font-size:larger" th:text="${user.firstName} + ' ' + ${user.lastName}">
+          Name
+        </p>
+        <img th:src="'/get/image/' + ${user.userName}" />
+        <div class="dropdown-content">
+
+          <div class="dropdown-content-flex">
+            <i class="fas fa-user-circle fa-lg" style=" margin: auto 0; padding-left: 5px;"></i>
+            <a th:href="@{/myprofile}">My Profile</a>
+          </div>
+          <div class="dropdown-content-flex">
+            <i class="fas fa-wrench fa-lg" style=" margin: auto 0; padding-left: 5px;"></i>
+            <a th:href="@{/settings}">Settings</a>
+          </div>
+          <div class="dropdown-content-flex">
+            <i class="fas fa-sign-out-alt fa-lg" style="margin: auto 0; padding-left: 5px;"></i>
+            <a th:href="@{/logout}">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div  id="result">
+    </div>
+  </div>
+</nav>
+
+<section id="side-nav-student">
+  <div class="sidenav">
+    <a th:href="@{/home}">Home</a>
+    <a th:href="@{/people}">People</a>
+  </div>
+</section>
+
+<section id="chat-nav">
+  <div class="chat-nav">
+    <div class="chat-nav-flex-container" id="chat">
+    </div>
+  </div>
+</section>
+
+<section id="chat-boxes">
+  <div class="chat-boxes-wrapper" id="chat-boxes-wrapper">
+  </div>
+
+</section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript">
+  function filterFunction() {
+    var input = document.getElementById("searchBox");
+    var filter = input.value.toLowerCase();
+    var nodes = document.getElementsByClassName('dropdown-content-searchBox-row');
+
+    for (i = 0; i < nodes.length; i++) {
+      if (nodes[i].innerText.toLowerCase().includes(filter)) {
+        nodes[i].style.display = "flex";
+      } else {
+        nodes[i].style.display = "none";
+      }
+    }
+  }
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+
+    let list = document.getElementById("dropdown-content-searchBox");
+    let searchBox = document.getElementById("searchBox");
+
+
+    var container = document.getElementsByClassName('dropdown-content-searchBox')[0];
+    document.addEventListener('click', function( event ) {
+      if ((container !== event.target && !container.contains(event.target)) && (document.activeElement!==searchBox)) {
+        list.style.display = "none";
+        console.log('clicking outside the div');
+      }
+    });
+    searchBox.onfocus = function() {
+      list.style.display = "flex";
+    }
+
+
+    $.ajax({
+      type: "GET",
+      url: "http://localhost:8080/getPeople",
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8',
+      success: function (data) {
+        $.each(data, function (index, item) {
+          let friendContainer = document.createElement("div");
+          let imgDiv = "<img class='dropdown-content-searchBox-column1 dropdown-content-searchBox-column1-img' src=http://localhost:8080/get/image/" + item.username + ">";
+          let nameDiv = "<div class='dropdown-content-searchBox-column2 dropdown-content-searchBox-column2-a'>" + item.name + "</div>"
+
+          friendContainer.setAttribute("id", item.username);
+          friendContainer.setAttribute("onclick", "window.location.href='http://localhost:8080/userProfile?friend_id=" + item.id +"';");
+          friendContainer.setAttribute("class", "dropdown-content-searchBox-row");
+          friendContainer.innerHTML = imgDiv + nameDiv;
+          list.appendChild(friendContainer);
+        })
+        console.log(data);
+      },
+      error:function(xhr, status, errorThrown) {
+
+        console.log(xhr);
+        console.log(status);
+        console.log(errorThrown);
+      }
+    });
+  });
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+
+    let list = document.getElementById("notifications");
+    $.ajax({
+      type : "GET",
+      url : "http://localhost:8080/getNotifications",
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8',
+      success: function(data){
+        $.each(data, function(index, item) {
+          let li = document.createElement("menu-dropdown-item-left");
+          let imgDiv = "<img class='user-notification-image' src=http://localhost:8080/get/image/" + item.username + ">" + item.text;
+          var button = document.createElement('button');
+          button.setAttribute('class','acceptFriendshipButton');
+          button.innerText = 'Accept';
+          button.setAttribute("id","acceptFriendship");
+
+          button.onclick = function () {
+            $.ajax({
+              url: "http://localhost:8080/confirmFriendRequest",
+              type: "post",
+              data: {friend_id: item.friendId, notificationId: item.notificationId}
+            });
+
+            window.location.reload();
+          };
+
+          li.innerHTML = imgDiv;
+          li.appendChild(button);
+          list.appendChild(li);
+        });
+        console.log(data);
+      },
+      error:function(xhr, status, errorThrown){
+
+        console.log(xhr);
+        console.log(status);
+        console.log(errorThrown);
+      }
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+
+    let list = document.getElementById("chat");
+    $.ajax({
+      type : "GET",
+      url : "http://localhost:8080/getFriendsForUser",
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8',
+      success: function(data){
+        $.each(data, function(index, item) {
+          let friendContainer = document.createElement("div");
+          let imgDiv = "<img class='chat-nav-flex-container-column1 chat-nav-flex-container-column1-img' src=http://localhost:8080/get/image/" + item.username + ">";
+          let nameDiv = "<div class='chat-nav-flex-container-column2 chat-nav-flex-container-column2-a'>" + item.name + "</div>"
+
+          friendContainer.setAttribute("id", item.username);
+          friendContainer.setAttribute("class", "chat-nav-flex-container-row");
+
+          friendContainer.onclick = function () {
+            let chatWrapper = document.getElementById("chat-boxes-wrapper");
+            let chatBox =  document.createElement("div");
+            chatBox.setAttribute("class", "chat-box-item");
+            let chatBoxTest = document.getElementById("chat-box-" + item.username);
+            if (typeof(chatBoxTest) != 'undefined' && chatBoxTest != null) {
+
+            }
+            else {
+              chatBox.setAttribute("id", "chat-box-" + item.username)
+
+              let chatBoxTop = "<div class='chat-box-item-top'> <img class='chat-box-item-top-img' src=http://localhost:8080/get/image/" + item.username + "><div class='chat-box-item-top-name'>" + item.name + "</div>" + "<span class='chat-box-item-top-name-close-X' id='chat-box-item-top-name-close-X-" + item.username + "'>&times;</span>" + "</div>";
+
+              let chatBoxMiddle = "<div class='chat-box-item-middle' id='chat-box-item-middle-" + item.username + "'>"
+
+              $.ajax({
+                url: "http://localhost:8080/getMessagesForUser",
+                type: "post",
+                data: {friend_id: item.username},
+                success: function (data) {
+                  let chatBoxMiddleContent = getMessages(data);
+                  console.log(data);
+
+                  let chatBoxMiddle = document.getElementById("chat-box-item-middle-" + item.username);
+                  chatBoxMiddle.innerHTML = chatBoxMiddleContent;
+                  chatBoxMiddle.scrollTop = chatBoxMiddle.scrollHeight;
+                  let sendButton = document.getElementById("button-" + item.username);
+                  let messageInput = document.getElementById("input-" + item.username);
+                  let xButton = document.getElementById("chat-box-item-top-name-close-X-" + item.username);
+
+                  /*Se trimite cand apesi Enter */
+                  const input = document.getElementById("input-" + item.username);
+                  input.addEventListener("keyup", function (event) {
+                    if (event.keyCode === 13) {
+                      event.preventDefault();
+                      document.getElementById("button-" + item.username).click();
+                    }
+
+                  });
+
+                  xButton.onclick = function () {
+                    document.getElementById("chat-box-" + item.username).remove();
+                  }
+
+                  sendButton.onclick = function () {
+                    const messageText = messageInput.value;
+                    messageInput.value = '';
+
+                    $.ajax({
+                      url: "http://localhost:8080/sendMessage",
+                      type: "post",
+                      data: {friend_id: item.username, messageText: messageText},
+                      success: function () {
+
+                        $.ajax({
+                          url: "http://localhost:8080/getMessagesForUser",
+                          type: "post",
+                          data: {friend_id: item.username},
+                          success: function (data) {
+                            chatBoxMiddleContent = getMessages(data);
+                            console.log(data);
+
+                            /*Aici se da refresh dupa ce se trimite mesaj*/
+                            chatBoxMiddle.innerHTML = chatBoxMiddleContent;
+                            chatBoxMiddle.scrollTop = chatBoxMiddle.scrollHeight;
+                          }
+                        })
+
+                      }
+                    });
+
+                  }
+
+                }
+              });
+              chatBoxMiddle += "</div>"
+              let chatBoxBottom = "<div class=\"chat-box-item-bottom\"> <input id=\"input-" + item.username + "\" type=\"text\" class=\"chat-box-message-box\">\n" +
+                      "        <button id=\"button-" + item.username + "\" class='send-message-button'>></button>\n" +
+                      "      </div>";
+
+              chatBox.innerHTML = chatBoxTop + chatBoxMiddle + chatBoxBottom;
+              chatWrapper.appendChild(chatBox);
+            }};
+            friendContainer.innerHTML = imgDiv + nameDiv;
+            //friendContainer.innerHTML = nameDiv;
+            list.appendChild(friendContainer);
+            loadMessagesAutomatically(item.username);
+            let chatContainer = document.getElementById("chat-boxes-wrapper");
+            setInterval(function(){
+              if(!($('#chat-boxes-wrapper')).children().length){
+              }
+              else{
+                loadMessagesAutomatically(item.username)
+              }
+
+            }, 6000);
+
+        });
+        console.log(data);
+      },
+      error:function(xhr, status, errorThrown){
+
+        console.log(xhr);
+        console.log(status);
+        console.log(errorThrown);
+      }
+    });
+
+    function getMessages(data) {
+      let chatBoxMiddleContent = "";
+      for(let message of data) {
+        chatBoxMiddleContent += "<div class=";
+
+        if (message.type === "sent"){
+          chatBoxMiddleContent += "'message-sent'>";
+        } else {
+          chatBoxMiddleContent += "'message-received'>";
+        }
+        chatBoxMiddleContent += message.message;
+        chatBoxMiddleContent += "</div>";
+      }
+
+      return chatBoxMiddleContent;
+    }
+
+    function loadMessagesAutomatically(username){
+      $.ajax({
+        url: "http://localhost:8080/getMessagesForUser",
+        type: "post",
+        data: {friend_id: username},
+        success: function (data) {
+          let chatBoxMiddleContent = getMessages(data);
+          console.log(data);
+
+          let chatBoxMiddle = document.getElementById("chat-box-item-middle-" + username);
+          chatBoxMiddle.innerHTML = chatBoxMiddleContent;
+          /*chatBoxMiddle.scrollTop = chatBoxMiddle.scrollHeight;*/
+        }
+      })
+    }
+
+
+
+  });
+
+
+</script>
+
